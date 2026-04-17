@@ -883,14 +883,12 @@ function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [state, handleSubmit] = useForm("xaqaobnw");
   const [sent, setSent] = useState(false);
-  const [spamTrap, setSpamTrap] = useState("");
   const [formError, setFormError] = useState("");
 
   useEffect(() => {
     if (state.succeeded) {
       setSent(true);
       setForm({ name: "", email: "", message: "" });
-      setSpamTrap("");
       setFormError("");
     }
   }, [state.succeeded]);
@@ -1056,17 +1054,10 @@ function Contact() {
                       e.preventDefault();
                       if (state.submitting) return;
                       setFormError("");
-
-                      if (spamTrap.trim()) {
-                        setFormError("Submission could not be completed. Please try again.");
-                        return;
-                      }
-
                       if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
                         setFormError("Please complete your name, email, and message.");
                         return;
                       }
-
                       try {
                         await handleSubmit(e);
                       } catch (err) {
@@ -1075,27 +1066,14 @@ function Contact() {
                     }}
                     style={{ display: "flex", flexDirection: "column", gap: 22 }}
                   >
-                    <div
+                    <input
+                      name="_gotcha"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      style={{ display: "none" }}
                       aria-hidden="true"
-                      style={{
-                        position: "absolute",
-                        left: -9999,
-                        width: 1,
-                        height: 1,
-                        overflow: "hidden",
-                      }}
-                    >
-                      <label htmlFor="company">Company</label>
-                      <input
-                        id="company"
-                        name="company"
-                        type="text"
-                        tabIndex={-1}
-                        autoComplete="new-password"
-                        value={spamTrap}
-                        onChange={e => setSpamTrap(e.target.value)}
-                      />
-                    </div>
+                    />
 
 
                     <div>
