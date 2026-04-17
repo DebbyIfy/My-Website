@@ -248,7 +248,7 @@ function Hero() {
               marginBottom: 28,
               textWrap: "balance",
             }}>
-              I design clarity for products,
+              I design clarity for{" "}products,
               <br />
               teams, and the people building them.
             </h1>
@@ -1191,6 +1191,64 @@ function Footer() {
   );
 }
 
+function ScrollToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const toggle = () => setVisible(window.scrollY > 300);
+    window.addEventListener("scroll", toggle);
+    return () => window.removeEventListener("scroll", toggle);
+  }, []);
+
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (!visible) return null;
+
+  return (
+    <button
+      onClick={scrollTop}
+      style={{
+        position: "fixed",
+        bottom: 28,
+        right: 28,
+        width: 44,
+        height: 44,
+        borderRadius: "50%",
+        border: `1px solid ${T.border}`,
+        background: "rgba(255,255,255,0.9)",
+        backdropFilter: "blur(10px)",
+        boxShadow: "0 10px 30px rgba(15,23,42,0.12)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+        transition: "all 0.2s ease",
+        zIndex: 300,
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.transform = "translateY(-2px)";
+        e.currentTarget.style.boxShadow = "0 14px 34px rgba(15,23,42,0.18)";
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "0 10px 30px rgba(15,23,42,0.12)";
+      }}
+    >
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+        <path
+          d="M6 15l6-6 6 6"
+          stroke={T.ink}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
+  );
+}
+
 /* ─── Root ──────────────────────────────────────────────── */
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -1286,6 +1344,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 }
