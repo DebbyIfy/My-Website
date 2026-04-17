@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 
 /* ─── Design tokens ─────────────────────────────────────── */
 const T = {
@@ -529,6 +530,13 @@ function WorkingOn() {
           href: "https://ifeomaokocha.notion.site/Ifeoma-O-Anyanwu-2b3a6a0d49ba80feb7c3fcd55c45d3f2?pvs=74",
         },
         {
+          label: "Book",
+          title: "Design Once, Sell Forever",
+          desc: "A practical guide for designers who want to turn existing work into scalable digital products and more repeatable income.",
+          cta: "Explore the book →",
+          href: "https://selar.com/1125x12h37",
+        },
+        {
           label: "Venture",
           title: "BuildNest AI",
           desc: "An AI operating partner designed to help founders and teams build with more clarity, alignment, and structure.",
@@ -570,8 +578,7 @@ function WorkingOn() {
       </div>
       <Container style={{ position: "relative", zIndex: 1 }}>
         <Reveal><SectionLabel>What I'm Working On</SectionLabel></Reveal>
-        <div className="three-col working-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28, alignItems: "stretch" }}>
-          {cols.map((col, i) => (
+        <div className="three-col working-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 28, alignItems: "stretch" }}>          {cols.map((col, i) => (
             <Reveal key={i} delay={i * 0.08}>
               <div style={{
                 background: "rgba(250,250,249,0.88)",
@@ -862,7 +869,7 @@ function About() {
             My work sits at the intersection of product clarity, systems thinking, and thoughtful execution. Over time, I’ve become increasingly drawn to the structure beneath the interface — how teams make decisions, how products stay coherent as they grow, and how better systems can reduce noise and unlock momentum.
           </p>
           <p style={{ fontSize: 15, color: T.muted, lineHeight: 1.75 }}>
-            That thinking now informs both my client work and BuildNest, the venture I’m building to help founders and teams operate with more clarity. I also write through Ask a Tech Mama, where I explore design, technology, ambition, and identity with honesty and depth.
+            That thinking now informs both my client work and BuildNest, the venture I’m building to help founders and teams operate with more clarity. I also write through Ask a Tech Mama, where I explore design, technology, ambition, and identity with honesty and depth, and created <em>Design Once, Sell Forever</em>, a practical guide for designers turning existing work into scalable digital products.
           </p>
         </Reveal>
         </div>
@@ -874,10 +881,19 @@ function About() {
 /* ─── Contact ───────────────────────────────────────────── */
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [state, handleSubmit] = useForm("xaqaobnw");
   const [sent, setSent] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const [spamTrap, setSpamTrap] = useState("");
-  const [error, setError] = useState("");
+  const [formError, setFormError] = useState("");
+
+  useEffect(() => {
+    if (state.succeeded) {
+      setSent(true);
+      setForm({ name: "", email: "", message: "" });
+      setSpamTrap("");
+      setFormError("");
+    }
+  }, [state.succeeded]);
 
   return (
     <section
@@ -973,31 +989,6 @@ function Contact() {
               Let’s build with more clarity.
             </h2>
 
-            {/* <a
-              href="mailto:okochaifeoma93@gmail.com"
-              style={{
-                display: "inline-block",
-                fontSize: 16,
-                color: T.accent,
-                textDecoration: "none",
-                fontWeight: 500,
-                marginBottom: 34,
-                paddingBottom: 4,
-                borderBottom: "1px solid transparent",
-                transition: "color 0.18s ease, border-color 0.18s ease",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.color = "#4338CA";
-                e.currentTarget.style.borderColor = "rgba(79,70,229,0.25)";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = T.accent;
-                e.currentTarget.style.borderColor = "transparent";
-              }}
-            >
-              okochaifeoma93@gmail.com
-            </a> */}
-
             <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
               {[
                 { label: "LinkedIn", href: "https://www.linkedin.com/in/ifeomaokocha" },
@@ -1045,18 +1036,45 @@ function Contact() {
                 padding: "34px 32px",
                 boxShadow: "0 18px 48px rgba(15,23,42,0.05)",
                 backdropFilter: "blur(12px)",
+                alignSelf: sent ? "start" : "stretch",
               }}
             >
-              <div style={{ position: "relative", minHeight: 320 }}>
+              <div style={{ position: "relative", minHeight: sent ? "auto" : 320, display: "flex", flexDirection: "column" }}>                
                 <div
                   style={{
+                    position: sent ? "absolute" : "relative",
+                    inset: sent ? 0 : "auto",
+                    width: "100%",
                     opacity: sent ? 0 : 1,
                     transform: sent ? "translateY(10px)" : "translateY(0)",
                     pointerEvents: sent ? "none" : "auto",
                     transition: "opacity 0.35s ease, transform 0.35s ease",
                   }}
                 >
-                  <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+                  <form
+                    onSubmit={async e => {
+                      e.preventDefault();
+                      if (state.submitting) return;
+                      setFormError("");
+
+                      if (spamTrap.trim()) {
+                        setSent(true);
+                        return;
+                      }
+
+                      if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+                        setFormError("Please complete your name, email, and message.");
+                        return;
+                      }
+
+                      try {
+                        await handleSubmit(e);
+                      } catch (err) {
+                        setFormError("Something went wrong. Please try again.");
+                      }
+                    }}
+                    style={{ display: "flex", flexDirection: "column", gap: 22 }}
+                  >
                     <div
                       aria-hidden="true"
                       style={{
@@ -1079,53 +1097,99 @@ function Contact() {
                       />
                     </div>
 
-                    {[
-                      { id: "name", label: "Name", placeholder: "Your name", type: "text" },
-                      { id: "email", label: "Email", placeholder: "you@company.com", type: "email" },
-                    ].map(f => (
-                      <div key={f.id}>
-                        <label
-                          style={{
-                            display: "block",
-                            fontSize: 12,
-                            fontWeight: 600,
-                            color: T.muted,
-                            marginBottom: 10,
-                            letterSpacing: "0.05em",
-                          }}
-                        >
-                          {f.label}
-                        </label>
-                        <input
-                          type={f.type}
-                          placeholder={f.placeholder}
-                          value={form[f.id]}
-                          onChange={e => setForm({ ...form, [f.id]: e.target.value })}
-                          style={{
-                            width: "100%",
-                            padding: "14px 16px",
-                            border: `1px solid rgba(229,231,235,0.95)`,
-                            borderRadius: 12,
-                            fontSize: 15,
-                            color: T.ink,
-                            background: "rgba(250,250,249,0.88)",
-                            outline: "none",
-                            fontFamily: "inherit",
-                            transition: "border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease",
-                          }}
-                          onFocus={e => {
-                            e.currentTarget.style.borderColor = T.accent;
-                            e.currentTarget.style.boxShadow = "0 0 0 4px rgba(79,70,229,0.08)";
-                            e.currentTarget.style.background = "#FFFFFF";
-                          }}
-                          onBlur={e => {
-                            e.currentTarget.style.borderColor = "rgba(229,231,235,0.95)";
-                            e.currentTarget.style.boxShadow = "none";
-                            e.currentTarget.style.background = "rgba(250,250,249,0.88)";
-                          }}
-                        />
-                      </div>
-                    ))}
+                    <input type="hidden" name="name" value={form.name} readOnly />
+                    <input type="hidden" name="email" value={form.email} readOnly />
+                    <textarea name="message" value={form.message} readOnly style={{ display: "none" }} aria-hidden="true" />
+
+                    <div>
+                      <label
+                        style={{
+                          display: "block",
+                          fontSize: 12,
+                          fontWeight: 600,
+                          color: T.muted,
+                          marginBottom: 10,
+                          letterSpacing: "0.05em",
+                        }}
+                      >
+                        Name
+                      </label>
+                      <input
+                        name="visible-name"
+                        autoComplete="name"
+                        type="text"
+                        placeholder="Your name"
+                        value={form.name}
+                        onChange={e => setForm({ ...form, name: e.target.value })}
+                        style={{
+                          width: "100%",
+                          padding: "14px 16px",
+                          border: `1px solid rgba(229,231,235,0.95)`,
+                          borderRadius: 12,
+                          fontSize: 15,
+                          color: T.ink,
+                          background: "rgba(250,250,249,0.88)",
+                          outline: "none",
+                          fontFamily: "inherit",
+                          transition: "border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease",
+                        }}
+                        onFocus={e => {
+                          e.currentTarget.style.borderColor = T.accent;
+                          e.currentTarget.style.boxShadow = "0 0 0 4px rgba(79,70,229,0.08)";
+                          e.currentTarget.style.background = "#FFFFFF";
+                        }}
+                        onBlur={e => {
+                          e.currentTarget.style.borderColor = "rgba(229,231,235,0.95)";
+                          e.currentTarget.style.boxShadow = "none";
+                          e.currentTarget.style.background = "rgba(250,250,249,0.88)";
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        style={{
+                          display: "block",
+                          fontSize: 12,
+                          fontWeight: 600,
+                          color: T.muted,
+                          marginBottom: 10,
+                          letterSpacing: "0.05em",
+                        }}
+                      >
+                        Email
+                      </label>
+                      <input
+                        name="visible-email"
+                        autoComplete="email"
+                        type="email"
+                        placeholder="you@company.com"
+                        value={form.email}
+                        onChange={e => setForm({ ...form, email: e.target.value })}
+                        style={{
+                          width: "100%",
+                          padding: "14px 16px",
+                          border: `1px solid rgba(229,231,235,0.95)`,
+                          borderRadius: 12,
+                          fontSize: 15,
+                          color: T.ink,
+                          background: "rgba(250,250,249,0.88)",
+                          outline: "none",
+                          fontFamily: "inherit",
+                          transition: "border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease",
+                        }}
+                        onFocus={e => {
+                          e.currentTarget.style.borderColor = T.accent;
+                          e.currentTarget.style.boxShadow = "0 0 0 4px rgba(79,70,229,0.08)";
+                          e.currentTarget.style.background = "#FFFFFF";
+                        }}
+                        onBlur={e => {
+                          e.currentTarget.style.borderColor = "rgba(229,231,235,0.95)";
+                          e.currentTarget.style.boxShadow = "none";
+                          e.currentTarget.style.background = "rgba(250,250,249,0.88)";
+                        }}
+                      />
+                    </div>
 
                     <div>
                       <label
@@ -1141,6 +1205,8 @@ function Contact() {
                         Message
                       </label>
                       <textarea
+                        name="visible-message"
+                        autoComplete="off"
                         placeholder="What are you working on?"
                         rows={4}
                         value={form.message}
@@ -1172,62 +1238,23 @@ function Contact() {
                       />
                     </div>
 
-                    {error ? (
-                      <p style={{ fontSize: 13, color: "#B91C1C", lineHeight: 1.6 }}>{error}</p>
+                    {formError ? (
+                      <p style={{ fontSize: 13, color: "#B91C1C", lineHeight: 1.6 }}>{formError}</p>
                     ) : null}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      <div style={{ fontSize: 13, color: "#B91C1C", lineHeight: 1.6 }}>
+                        <ValidationError prefix="Email" field="email" errors={state.errors} />
+                      </div>
+                      <div style={{ fontSize: 13, color: "#B91C1C", lineHeight: 1.6 }}>
+                        <ValidationError prefix="Message" field="message" errors={state.errors} />
+                      </div>
+                    </div>
 
                     <div style={{ paddingTop: 8 }}>
                       <button
-                        type="button"
-                        disabled={submitting}
-                        aria-busy={submitting}
-                        onClick={async () => {
-                          if (submitting) return;
-                          setError("");
-
-                          if (spamTrap.trim()) {
-                            setSent(true);
-                            return;
-                          }
-
-                          if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-                            setError("Please complete your name, email, and message.");
-                            return;
-                          }
-
-                          setSubmitting(true);
-                          try {
-                            const res = await fetch("https://formspree.io/f/YOUR_REAL_FORM_ID", {
-                              method: "POST",
-                              headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json"
-                              },
-                              body: JSON.stringify({
-                                name: form.name,
-                                email: form.email,
-                                message: form.message,
-                                company: spamTrap
-                              })
-                            });
-
-                            const data = await res.json().catch(() => null);
-
-                            if (res.ok) {
-                              setSent(true);
-                              setForm({ name: "", email: "", message: "" });
-                              setSpamTrap("");
-                            } else {
-                              console.error("Formspree error:", data);
-                              setError(data?.errors?.[0]?.message || "Something went wrong. Please try again.");
-                            }
-                          } catch (err) {
-                            console.error("Network error:", err);
-                            setError("Network error. Please try again.");
-                          } finally {
-                            setSubmitting(false);
-                          }
-                        }}
+                        type="submit"
+                        disabled={state.submitting}
+                        aria-busy={state.submitting}
                         style={{
                           display: "inline-flex",
                           alignItems: "center",
@@ -1239,21 +1266,21 @@ function Contact() {
                           letterSpacing: "0.01em",
                           padding: "10px 20px",
                           borderRadius: 6,
-                          cursor: submitting ? "wait" : "pointer",
+                          cursor: state.submitting ? "wait" : "pointer",
                           transition: "all 0.18s ease",
                           border: "none",
-                          background: submitting ? "#334155" : T.ink,
+                          background: state.submitting ? "#334155" : T.ink,
                           color: "#fff",
-                          opacity: submitting ? 0.92 : 1,
+                          opacity: state.submitting ? 0.92 : 1,
                         }}
                         onMouseEnter={e => {
-                          if (!submitting) e.currentTarget.style.background = "#1e293b";
+                          if (!state.submitting) e.currentTarget.style.background = "#1e293b";
                         }}
                         onMouseLeave={e => {
-                          e.currentTarget.style.background = submitting ? "#334155" : T.ink;
+                          e.currentTarget.style.background = state.submitting ? "#334155" : T.ink;
                         }}
                       >
-                        {submitting ? (
+                        {state.submitting ? (
                           <>
                             <span
                               aria-hidden="true"
@@ -1274,7 +1301,7 @@ function Contact() {
                         )}
                       </button>
                     </div>
-                  </div>
+                  </form>
                 </div>
 
                 <div
@@ -1285,8 +1312,8 @@ function Contact() {
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
-                    minHeight: 320,
-                    paddingTop: sent ? 28 : 40,
+                    minHeight: sent ? "auto" : 320,
+                    paddingTop: sent ? 0 : 40,
                     gap: 10,
                     opacity: sent ? 1 : 0,
                     transform: sent ? "translateY(0)" : "translateY(12px)",
@@ -1316,10 +1343,10 @@ function Contact() {
                     type="button"
                     onClick={() => {
                       setSent(false);
-                      setError("");
+                      setFormError("");
                     }}
                     style={{
-                      marginTop: 14,
+                      marginTop: 16,
                       display: "inline-flex",
                       alignItems: "center",
                       gap: 6,
@@ -1372,6 +1399,7 @@ function Footer() {
           <div style={{ display: "flex", gap: 24 }}>
             {[
               { label: "LinkedIn", href: "https://www.linkedin.com/in/ifeomaokocha" },
+              { label: "Book", href: "https://selar.com/1125x12h37" },
               { label: "BuildNest AI", href: "https://buildneststudio.com" },
               { label: "Newsletter", href: "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7392679189499330560" }
             ].map(l => (
@@ -1505,16 +1533,14 @@ export default function App() {
           to { transform: rotate(360deg); }
         }
         @media (max-width: 1024px) {
-          .three-col { grid-template-columns: 1fr !important; gap: 24px !important; }
+          .three-col { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 24px !important; }
           .working-grid { gap: 22px !important; }
         }
         @media (max-width: 768px) {
           .hero-copy, .hero-glow-1, .hero-glow-2 { animation: none !important; }
           .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
           .two-col { grid-template-columns: 1fr !important; gap: 40px !important; }
-          .three-col { grid-template-columns: 1fr !important; }
-          .metrics { flex-direction: column !important; gap: 24px !important; }
-          .metrics > div { padding-left: 0 !important; padding-right: 0 !important; border-right: none !important; border-bottom: 1px solid #E5E7EB; padding-bottom: 20px !important; }
+          .three-col { grid-template-columns: 1fr !important; }          .metrics > div { padding-left: 0 !important; padding-right: 0 !important; border-right: none !important; border-bottom: 1px solid #E5E7EB; padding-bottom: 20px !important; }
           .metrics > div:last-child { border-bottom: none !important; padding-bottom: 0 !important; }
           .writing-row { grid-template-columns: 1fr !important; gap: 18px !important; padding: 24px 22px !important; }
           .writing-card-link { display: block; }          nav .center-links { display: none !important; }
