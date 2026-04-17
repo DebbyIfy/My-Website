@@ -1,8 +1,60 @@
-# React + Vite
+# Ifeoma O. Anyanwu — Personal Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimal, design-led personal website showcasing my work, thinking, and current venture.
 
-Currently, two official plugins are available:
+🔗 Live site: https://ifeoma.buildneststudio.com/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+
+## Overview
+
+This website is designed as a **signal, not a portfolio dump**.
+
+It focuses on:
+- clarity of thought
+- structured presentation
+- premium, minimal interaction design
+
+Rather than listing everything I’ve done, it highlights:
+- how I think
+- how I design
+- what I’m building
+
+---
+
+## Sections
+
+- **Hero** — positioning and narrative
+- **BuildNest AI** — current venture (AI Operating Partner)
+- **How I Contribute** — capabilities and approach
+- **What I'm Working On** — portfolio, venture, writing
+- **Thinking** — perspective and principles
+- **Writing** — Ask a Tech Mama newsletter
+- **Contact** — direct outreach
+
+---
+
+## Tech Stack
+
+- React (Vite)
+- Plain CSS (no UI frameworks)
+- GitHub Pages (deployment)
+
+---
+
+## Design Approach
+
+- System-first thinking (spacing, typography, hierarchy)
+- Minimal color usage with a single accent
+- Motion used subtly for depth, not distraction
+- Components built for clarity and reuse
+
+---
+
+## Deployment
+
+Hosted via GitHub Pages using:
+
+```bash
+npm run build
+npm run deploy
