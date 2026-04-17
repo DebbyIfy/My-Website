@@ -1058,7 +1058,7 @@ function Contact() {
                       setFormError("");
 
                       if (spamTrap.trim()) {
-                        setSent(true);
+                        setFormError("Submission could not be completed. Please try again.");
                         return;
                       }
 
@@ -1091,7 +1091,7 @@ function Contact() {
                         name="company"
                         type="text"
                         tabIndex={-1}
-                        autoComplete="off"
+                        autoComplete="new-password"
                         value={spamTrap}
                         onChange={e => setSpamTrap(e.target.value)}
                       />
