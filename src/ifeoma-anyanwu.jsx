@@ -1197,7 +1197,7 @@ function Contact() {
 
                           setSubmitting(true);
                           try {
-                            const res = await fetch("https://formspree.io/f/xaqaobnw", {
+                            const res = await fetch("https://formspree.io/f/YOUR_REAL_FORM_ID", {
                               method: "POST",
                               headers: {
                                 "Content-Type": "application/json",
@@ -1211,14 +1211,18 @@ function Contact() {
                               })
                             });
 
+                            const data = await res.json().catch(() => null);
+
                             if (res.ok) {
                               setSent(true);
                               setForm({ name: "", email: "", message: "" });
                               setSpamTrap("");
                             } else {
-                              setError("Something went wrong. Please try again.");
+                              console.error("Formspree error:", data);
+                              setError(data?.errors?.[0]?.message || "Something went wrong. Please try again.");
                             }
                           } catch (err) {
+                            console.error("Network error:", err);
                             setError("Network error. Please try again.");
                           } finally {
                             setSubmitting(false);
