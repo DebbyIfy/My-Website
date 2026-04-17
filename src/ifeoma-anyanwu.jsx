@@ -1097,9 +1097,6 @@ function Contact() {
                       />
                     </div>
 
-                    <input type="hidden" name="name" value={form.name} readOnly />
-                    <input type="hidden" name="email" value={form.email} readOnly />
-                    <textarea name="message" value={form.message} readOnly style={{ display: "none" }} aria-hidden="true" />
 
                     <div>
                       <label
@@ -1115,9 +1112,10 @@ function Contact() {
                         Name
                       </label>
                       <input
-                        name="visible-name"
+                        name="name"
                         autoComplete="name"
                         type="text"
+                        required
                         placeholder="Your name"
                         value={form.name}
                         onChange={e => setForm({ ...form, name: e.target.value })}
@@ -1160,9 +1158,10 @@ function Contact() {
                         Email
                       </label>
                       <input
-                        name="visible-email"
+                        name="email"
                         autoComplete="email"
                         type="email"
+                        required
                         placeholder="you@company.com"
                         value={form.email}
                         onChange={e => setForm({ ...form, email: e.target.value })}
@@ -1205,8 +1204,9 @@ function Contact() {
                         Message
                       </label>
                       <textarea
-                        name="visible-message"
+                        name="message"
                         autoComplete="off"
+                        required
                         placeholder="What are you working on?"
                         rows={4}
                         value={form.message}
@@ -1540,10 +1540,12 @@ export default function App() {
           .hero-copy, .hero-glow-1, .hero-glow-2 { animation: none !important; }
           .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
           .two-col { grid-template-columns: 1fr !important; gap: 40px !important; }
-          .three-col { grid-template-columns: 1fr !important; }          .metrics > div { padding-left: 0 !important; padding-right: 0 !important; border-right: none !important; border-bottom: 1px solid #E5E7EB; padding-bottom: 20px !important; }
+          .three-col { grid-template-columns: 1fr !important; }
+          .metrics > div { padding-left: 0 !important; padding-right: 0 !important; border-right: none !important; border-bottom: 1px solid #E5E7EB; padding-bottom: 20px !important; }
           .metrics > div:last-child { border-bottom: none !important; padding-bottom: 0 !important; }
           .writing-row { grid-template-columns: 1fr !important; gap: 18px !important; padding: 24px 22px !important; }
-          .writing-card-link { display: block; }          nav .center-links { display: none !important; }
+          .writing-card-link { display: block; }
+          nav .center-links { display: none !important; }
           .hero-shell { max-width: 100% !important; }
           .hero-copy { text-align: left !important; align-items: flex-start !important; }
           .hero-copy h1 { font-size: clamp(40px, 12vw, 58px) !important; line-height: 1.02 !important; }
