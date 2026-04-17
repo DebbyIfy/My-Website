@@ -738,7 +738,7 @@ function Writing() {
           <Reveal><SectionLabel>Selected Writing — Ask a Tech Mama</SectionLabel></Reveal>
           <Reveal delay={0.05}>
             <a
-              href={a.href}              
+              href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7392679189499330560"
               style={{
                 fontSize: 13,
                 color: T.muted,
@@ -768,7 +768,7 @@ function Writing() {
             <Reveal key={i} delay={i * 0.07}>
               <a
                 className="writing-card-link"
-                href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7392679189499330560"
+                href={a.href}
                 style={{ textDecoration: "none" }}
                 target="_blank"
                 rel="noreferrer"
