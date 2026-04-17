@@ -875,6 +875,9 @@ function About() {
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [spamTrap, setSpamTrap] = useState("");
+  const [error, setError] = useState("");
 
   return (
     <section
@@ -1044,18 +1047,87 @@ function Contact() {
                 backdropFilter: "blur(12px)",
               }}
             >
-              {sent ? (
-                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", minHeight: 320, gap: 10 }}>
-                  <p style={{ fontSize: 24, fontWeight: 700, color: T.ink, letterSpacing: "-0.03em" }}>Message sent.</p>
-                  <p style={{ fontSize: 14, color: T.muted }}>Thanks for reaching out. I’ll get back to you soon.</p>
-                </div>
-              ) : (
-                <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
-                  {[
-                    { id: "name", label: "Name", placeholder: "Your name", type: "text" },
-                    { id: "email", label: "Email", placeholder: "you@company.com", type: "email" },
-                  ].map(f => (
-                    <div key={f.id}>
+              <div style={{ position: "relative", minHeight: 320 }}>
+                <div
+                  style={{
+                    opacity: sent ? 0 : 1,
+                    transform: sent ? "translateY(10px)" : "translateY(0)",
+                    pointerEvents: sent ? "none" : "auto",
+                    transition: "opacity 0.35s ease, transform 0.35s ease",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        position: "absolute",
+                        left: -9999,
+                        width: 1,
+                        height: 1,
+                        overflow: "hidden",
+                      }}
+                    >
+                      <label htmlFor="company">Company</label>
+                      <input
+                        id="company"
+                        name="company"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={spamTrap}
+                        onChange={e => setSpamTrap(e.target.value)}
+                      />
+                    </div>
+
+                    {[
+                      { id: "name", label: "Name", placeholder: "Your name", type: "text" },
+                      { id: "email", label: "Email", placeholder: "you@company.com", type: "email" },
+                    ].map(f => (
+                      <div key={f.id}>
+                        <label
+                          style={{
+                            display: "block",
+                            fontSize: 12,
+                            fontWeight: 600,
+                            color: T.muted,
+                            marginBottom: 10,
+                            letterSpacing: "0.05em",
+                          }}
+                        >
+                          {f.label}
+                        </label>
+                        <input
+                          type={f.type}
+                          placeholder={f.placeholder}
+                          value={form[f.id]}
+                          onChange={e => setForm({ ...form, [f.id]: e.target.value })}
+                          style={{
+                            width: "100%",
+                            padding: "14px 16px",
+                            border: `1px solid rgba(229,231,235,0.95)`,
+                            borderRadius: 12,
+                            fontSize: 15,
+                            color: T.ink,
+                            background: "rgba(250,250,249,0.88)",
+                            outline: "none",
+                            fontFamily: "inherit",
+                            transition: "border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease",
+                          }}
+                          onFocus={e => {
+                            e.currentTarget.style.borderColor = T.accent;
+                            e.currentTarget.style.boxShadow = "0 0 0 4px rgba(79,70,229,0.08)";
+                            e.currentTarget.style.background = "#FFFFFF";
+                          }}
+                          onBlur={e => {
+                            e.currentTarget.style.borderColor = "rgba(229,231,235,0.95)";
+                            e.currentTarget.style.boxShadow = "none";
+                            e.currentTarget.style.background = "rgba(250,250,249,0.88)";
+                          }}
+                        />
+                      </div>
+                    ))}
+
+                    <div>
                       <label
                         style={{
                           display: "block",
@@ -1066,13 +1138,13 @@ function Contact() {
                           letterSpacing: "0.05em",
                         }}
                       >
-                        {f.label}
+                        Message
                       </label>
-                      <input
-                        type={f.type}
-                        placeholder={f.placeholder}
-                        value={form[f.id]}
-                        onChange={e => setForm({ ...form, [f.id]: e.target.value })}
+                      <textarea
+                        placeholder="What are you working on?"
+                        rows={4}
+                        value={form.message}
+                        onChange={e => setForm({ ...form, message: e.target.value })}
                         style={{
                           width: "100%",
                           padding: "14px 16px",
@@ -1082,6 +1154,8 @@ function Contact() {
                           color: T.ink,
                           background: "rgba(250,250,249,0.88)",
                           outline: "none",
+                          resize: "vertical",
+                          minHeight: 140,
                           fontFamily: "inherit",
                           transition: "border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease",
                         }}
@@ -1097,58 +1171,142 @@ function Contact() {
                         }}
                       />
                     </div>
-                  ))}
 
-                  <div>
-                    <label
-                      style={{
-                        display: "block",
-                        fontSize: 12,
-                        fontWeight: 600,
-                        color: T.muted,
-                        marginBottom: 10,
-                        letterSpacing: "0.05em",
-                      }}
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      placeholder="What are you working on?"
-                      rows={4}
-                      value={form.message}
-                      onChange={e => setForm({ ...form, message: e.target.value })}
-                      style={{
-                        width: "100%",
-                        padding: "14px 16px",
-                        border: `1px solid rgba(229,231,235,0.95)`,
-                        borderRadius: 12,
-                        fontSize: 15,
-                        color: T.ink,
-                        background: "rgba(250,250,249,0.88)",
-                        outline: "none",
-                        resize: "vertical",
-                        minHeight: 140,
-                        fontFamily: "inherit",
-                        transition: "border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease",
-                      }}
-                      onFocus={e => {
-                        e.currentTarget.style.borderColor = T.accent;
-                        e.currentTarget.style.boxShadow = "0 0 0 4px rgba(79,70,229,0.08)";
-                        e.currentTarget.style.background = "#FFFFFF";
-                      }}
-                      onBlur={e => {
-                        e.currentTarget.style.borderColor = "rgba(229,231,235,0.95)";
-                        e.currentTarget.style.boxShadow = "none";
-                        e.currentTarget.style.background = "rgba(250,250,249,0.88)";
-                      }}
-                    />
-                  </div>
+                    {error ? (
+                      <p style={{ fontSize: 13, color: "#B91C1C", lineHeight: 1.6 }}>{error}</p>
+                    ) : null}
 
-                  <div style={{ paddingTop: 8 }}>
-                    <Btn variant="primary" href="mailto:okochaifeoma93@gmail.com">Send message</Btn>
+                    <div style={{ paddingTop: 8 }}>
+                      <button
+                        type="button"
+                        disabled={submitting}
+                        aria-busy={submitting}
+                        onClick={async () => {
+                          if (submitting) return;
+                          setError("");
+
+                          if (spamTrap.trim()) {
+                            setSent(true);
+                            return;
+                          }
+
+                          if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+                            setError("Please complete your name, email, and message.");
+                            return;
+                          }
+
+                          setSubmitting(true);
+                          try {
+                            const res = await fetch("https://formspree.io/f/xaqaobnw", {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json"
+                              },
+                              body: JSON.stringify({
+                                name: form.name,
+                                email: form.email,
+                                message: form.message,
+                                company: spamTrap
+                              })
+                            });
+
+                            if (res.ok) {
+                              setSent(true);
+                              setForm({ name: "", email: "", message: "" });
+                              setSpamTrap("");
+                            } else {
+                              setError("Something went wrong. Please try again.");
+                            }
+                          } catch (err) {
+                            setError("Network error. Please try again.");
+                          } finally {
+                            setSubmitting(false);
+                          }
+                        }}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: 8,
+                          minWidth: 150,
+                          fontSize: 13,
+                          fontWeight: 500,
+                          letterSpacing: "0.01em",
+                          padding: "10px 20px",
+                          borderRadius: 6,
+                          cursor: submitting ? "wait" : "pointer",
+                          transition: "all 0.18s ease",
+                          border: "none",
+                          background: submitting ? "#334155" : T.ink,
+                          color: "#fff",
+                          opacity: submitting ? 0.92 : 1,
+                        }}
+                        onMouseEnter={e => {
+                          if (!submitting) e.currentTarget.style.background = "#1e293b";
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.background = submitting ? "#334155" : T.ink;
+                        }}
+                      >
+                        {submitting ? (
+                          <>
+                            <span
+                              aria-hidden="true"
+                              style={{
+                                width: 14,
+                                height: 14,
+                                borderRadius: "50%",
+                                border: "2px solid rgba(255,255,255,0.35)",
+                                borderTopColor: "#fff",
+                                display: "inline-block",
+                                animation: "spin 0.8s linear infinite",
+                              }}
+                            />
+                            Sending...
+                          </>
+                        ) : (
+                          "Send message"
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              )}
+
+                <div
+                  style={{
+                    position: sent ? "relative" : "absolute",
+                    inset: sent ? "auto" : 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    minHeight: 320,
+                    gap: 10,
+                    opacity: sent ? 1 : 0,
+                    transform: sent ? "translateY(0)" : "translateY(12px)",
+                    pointerEvents: sent ? "auto" : "none",
+                    transition: "opacity 0.35s ease, transform 0.35s ease",
+                  }}
+                >
+                  <div style={{
+                    width: 54,
+                    height: 54,
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "rgba(79,70,229,0.08)",
+                    border: "1px solid rgba(79,70,229,0.12)",
+                    marginBottom: 6,
+                  }}>
+                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 12.5l4.2 4.2L19 7.5" stroke={T.accent} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  <p style={{ fontSize: 24, fontWeight: 700, color: T.ink, letterSpacing: "-0.03em" }}>Message sent.</p>
+                  <p style={{ fontSize: 14, color: T.muted, lineHeight: 1.7, maxWidth: 420 }}>Thanks for reaching out. I’ll get back to you soon.</p>
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -1174,7 +1332,7 @@ function Footer() {
           <div style={{ display: "flex", gap: 24 }}>
             {[
               { label: "LinkedIn", href: "https://www.linkedin.com/in/ifeomaokocha" },
-              { label: "BuildNest AI", href: "https://www.buildneststudio.com" },
+              { label: "BuildNest AI", href: "https://app.buildneststudio.com" },
               { label: "Newsletter", href: "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7392679189499330560" }
             ].map(l => (
               <a key={l.label} href={l.href} style={{ fontSize: 12, color: T.muted, textDecoration: "none" }}
@@ -1301,6 +1459,10 @@ export default function App() {
         @keyframes glowDriftTwo {
           0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
           50% { transform: translate3d(-16px, 14px, 0) scale(1.05); }
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
         @media (max-width: 1024px) {
           .three-col { grid-template-columns: 1fr !important; gap: 24px !important; }
