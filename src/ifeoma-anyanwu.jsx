@@ -688,22 +688,25 @@ function Thinking() {
 /* ─── Writing ───────────────────────────────────────────── */
 function Writing() {
   const articles = [
-    {
-      tag: "Product Strategy",
-      title: "Why Most Founders Skip the Most Important Step",
-      excerpt: "Before the wireframe, before the PRD — there's a harder question that most teams avoid. Here's how to stop skipping it.",
-    },
-    {
-      tag: "Design Systems",
-      title: "The Real Cost of a Design System That Doesn't Scale",
-      excerpt: "It's never about the components. It's about the decisions you embed — and who has to live with them six months later.",
-    },
-    {
-      tag: "AI & Tools",
-      title: "Using AI Without Losing Your Thinking",
-      excerpt: "AI tools are multipliers. But what happens when the thing being multiplied is vague? A framework for staying sharp.",
-    },
-  ];
+  {
+    tag: "Ask a Tech Mama",
+    title: "From Seeing to Trying: Your First Gentle Prototype",
+    excerpt: "A reflection on taking small, honest steps into something new — and how gentle experimentation can become a real beginning.",
+    href: "https://www.linkedin.com/pulse/from-seeing-trying-your-first-gentle-prototype-ifeoma-o-anyanwu-nbcte/?trackingId=IXVm49kOQzKK9O4JaT9NNw%3D%3D",
+  },
+  {
+    tag: "Ask a Tech Mama",
+    title: "Module 1: Finding Your Footing in Tech Through Design",
+    excerpt: "A grounded look at starting in tech through design, learning how to find your place, and building confidence one step at a time.",
+    href: "https://www.linkedin.com/pulse/module-1-finding-your-footing-tech-through-design-ifeoma-o-anyanwu-bhuhe/?trackingId=xHu78qqdSvCTHwgv%2B8NYyg%3D%3D",
+  },
+  {
+    tag: "Ask a Tech Mama",
+    title: "What You See Is What You Believe",
+    excerpt: "A thoughtful piece on exposure, possibility, and how what we repeatedly see can expand or limit what we believe is possible for ourselves.",
+    href: "https://www.linkedin.com/pulse/what-you-see-believe-ifeoma-o-anyanwu-imytf/?trackingId=vCj5JC6YQQ%2BS2SSLsbln7A%3D%3D",
+  },
+];
 
   return (
     <section style={{ padding: "120px 0", background: "linear-gradient(to bottom, #FAFAF9 0%, #F4F4F2 100%)", position: "relative", overflow: "hidden" }}>
@@ -735,7 +738,7 @@ function Writing() {
           <Reveal><SectionLabel>Selected Writing — Ask a Tech Mama</SectionLabel></Reveal>
           <Reveal delay={0.05}>
             <a
-              href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7392679189499330560"
+              href={a.href}              
               style={{
                 fontSize: 13,
                 color: T.muted,
