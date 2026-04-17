@@ -689,19 +689,19 @@ function Thinking() {
 function Writing() {
   const articles = [
   {
-    tag: "Ask a Tech Mama",
+    tag: "Gentle Beginnings",
     title: "From Seeing to Trying: Your First Gentle Prototype",
     excerpt: "A reflection on taking small, honest steps into something new — and how gentle experimentation can become a real beginning.",
     href: "https://www.linkedin.com/pulse/from-seeing-trying-your-first-gentle-prototype-ifeoma-o-anyanwu-nbcte/?trackingId=IXVm49kOQzKK9O4JaT9NNw%3D%3D",
   },
   {
-    tag: "Ask a Tech Mama",
+    tag: "Learning in Public",
     title: "Module 1: Finding Your Footing in Tech Through Design",
     excerpt: "A grounded look at starting in tech through design, learning how to find your place, and building confidence one step at a time.",
     href: "https://www.linkedin.com/pulse/module-1-finding-your-footing-tech-through-design-ifeoma-o-anyanwu-bhuhe/?trackingId=xHu78qqdSvCTHwgv%2B8NYyg%3D%3D",
   },
   {
-    tag: "Ask a Tech Mama",
+    tag: "Perspective & Growth",
     title: "What You See Is What You Believe",
     excerpt: "A thoughtful piece on exposure, possibility, and how what we repeatedly see can expand or limit what we believe is possible for ourselves.",
     href: "https://www.linkedin.com/pulse/what-you-see-believe-ifeoma-o-anyanwu-imytf/?trackingId=vCj5JC6YQQ%2BS2SSLsbln7A%3D%3D",
