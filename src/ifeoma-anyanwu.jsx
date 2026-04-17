@@ -1279,8 +1279,10 @@ function Contact() {
                     inset: sent ? "auto" : 0,
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
                     minHeight: 320,
+                    paddingTop: sent ? 28 : 40,
                     gap: 10,
                     opacity: sent ? 1 : 0,
                     transform: sent ? "translateY(0)" : "translateY(12px)",
@@ -1289,22 +1291,56 @@ function Contact() {
                   }}
                 >
                   <div style={{
-                    width: 54,
-                    height: 54,
+                    width: 56,
+                    height: 56,
                     borderRadius: "50%",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     background: "rgba(79,70,229,0.08)",
                     border: "1px solid rgba(79,70,229,0.12)",
-                    marginBottom: 6,
+                    marginBottom: 8,
+                    boxShadow: "0 10px 24px rgba(79,70,229,0.08)",
                   }}>
                     <svg width="22" height="22" fill="none" viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M5 12.5l4.2 4.2L19 7.5" stroke={T.accent} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
-                  <p style={{ fontSize: 24, fontWeight: 700, color: T.ink, letterSpacing: "-0.03em" }}>Message sent.</p>
-                  <p style={{ fontSize: 14, color: T.muted, lineHeight: 1.7, maxWidth: 420 }}>Thanks for reaching out. I’ll get back to you soon.</p>
+                  <p style={{ fontSize: 28, fontWeight: 700, color: T.ink, letterSpacing: "-0.04em", lineHeight: 1.05 }}>Message sent.</p>
+                  <p style={{ fontSize: 15, color: T.muted, lineHeight: 1.75, maxWidth: 420 }}>Thanks for reaching out. I’ll get back to you soon.</p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSent(false);
+                      setError("");
+                    }}
+                    style={{
+                      marginTop: 14,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      fontSize: 13,
+                      fontWeight: 500,
+                      letterSpacing: "0.01em",
+                      padding: "9px 16px",
+                      borderRadius: 999,
+                      cursor: "pointer",
+                      transition: "all 0.18s ease",
+                      border: `1px solid ${T.border}`,
+                      background: "rgba(255,255,255,0.7)",
+                      color: T.ink,
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.borderColor = "rgba(79,70,229,0.22)";
+                      e.currentTarget.style.background = "rgba(255,255,255,0.92)";
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.borderColor = T.border;
+                      e.currentTarget.style.background = "rgba(255,255,255,0.7)";
+                    }}
+                  >
+                    Send another
+                  </button>
                 </div>
               </div>
             </div>
