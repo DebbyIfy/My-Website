@@ -354,7 +354,7 @@ function BuildNest() {
             </Reveal>
             <Reveal delay={0.15}>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                  <Btn variant="accent" href="https://app.buildneststudio.com">Explore BuildNest</Btn>
+                  <Btn variant="accent" href="https://buildneststudio.com">Explore BuildNest</Btn>
                   <a href="#contact" style={{
                     display: "inline-flex", alignItems: "center",
                     fontSize: 13, fontWeight: 500, color: "#94A3B8",
@@ -533,7 +533,7 @@ function WorkingOn() {
           title: "BuildNest AI",
           desc: "An AI operating partner designed to help founders and teams build with more clarity, alignment, and structure.",
           cta: "Explore BuildNest →",
-          href: "https://www.buildneststudio.com",
+          href: "https://buildneststudio.com",
         },
         {
           label: "Writing",
@@ -1332,7 +1332,7 @@ function Footer() {
           <div style={{ display: "flex", gap: 24 }}>
             {[
               { label: "LinkedIn", href: "https://www.linkedin.com/in/ifeomaokocha" },
-              { label: "BuildNest AI", href: "https://app.buildneststudio.com" },
+              { label: "BuildNest AI", href: "https://buildneststudio.com" },
               { label: "Newsletter", href: "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7392679189499330560" }
             ].map(l => (
               <a key={l.label} href={l.href} style={{ fontSize: 12, color: T.muted, textDecoration: "none" }}
