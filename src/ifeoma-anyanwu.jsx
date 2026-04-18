@@ -1522,6 +1522,8 @@ export default function App() {
           .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
           .two-col { grid-template-columns: 1fr !important; gap: 40px !important; }
           .three-col { grid-template-columns: 1fr !important; }
+          .metrics { flex-direction: column !important; gap: 24px !important; padding: 22px 22px 6px !important; }
+          .metrics > div { min-height: auto !important; }
           .metrics > div { padding-left: 0 !important; padding-right: 0 !important; border-right: none !important; border-bottom: 1px solid #E5E7EB; padding-bottom: 20px !important; }
           .metrics > div:last-child { border-bottom: none !important; padding-bottom: 0 !important; }
           .writing-row { grid-template-columns: 1fr !important; gap: 18px !important; padding: 24px 22px !important; }
