@@ -165,7 +165,7 @@ function Nav({ scrolled }) {
           </span>
 
           <div className="center-links" style={{ display: "flex", gap: 32, position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-            {[["Work", "work"], ["BuildNest", "buildnest"], ["Thinking", "thinking"], ["About", "about"]].map(([label, id]) => (
+            {[["Work", "work"], ["BuildNest", "buildnest"], ["Thinking", "thinking"], ["About", "about"], ["Experience", "experience"]].map(([label, id]) => (
               <span key={id} onClick={() => scrollTo(id)} style={{
                 fontSize: 13, color: T.muted, cursor: "pointer", fontWeight: 400,
                 transition: "color 0.15s"
@@ -282,7 +282,7 @@ function Hero() {
             }}>
               <span>8+ years in product design</span>
               <span aria-hidden="true" style={{ width: 4, height: 4, borderRadius: "50%", background: "#CBD5E1", display: "inline-block" }} />
-              <span>Founder, BuildNest AI</span>
+              <span>Founder, BuildNest Studio</span>
               <span aria-hidden="true" style={{ width: 4, height: 4, borderRadius: "50%", background: "#CBD5E1", display: "inline-block" }} />
               <span>Designing for clarity, systems, and thoughtful execution</span>
             </div>
@@ -304,7 +304,7 @@ function Hero() {
           {[
             ["8+", "Years shaping digital products"],
             ["Multi-sector", "Fintech, SaaS, travel, and media"],
-            ["Now building", "BuildNest AI Operating Partner"],
+            ["Now building", "AI Operating Partner"],
           ].map(([num, label], i) => (
             <div key={i} style={{
               flex: 1,
@@ -344,13 +344,13 @@ function BuildNest() {
           <div>
             <Reveal delay={0.05}>
               <h2 style={{ fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 700, letterSpacing: "-0.035em", color: "#F8FAFC", lineHeight: 1.12, marginBottom: 20 }}>
-                BuildNest AI<br />Operating Partner
+                BuildNest<br />Studio
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p style={{ fontSize: 16, color: "#94A3B8", lineHeight: 1.75, marginBottom: 36, maxWidth: 460 }}>
-                BuildNest is an AI operating partner for founders and teams — designed to turn scattered ideas,
-                decisions, and workflows into clearer product direction and execution.
+                BuildNest Studio is an AI product studio building always-on AI operators for the work a business
+                can't afford to drop — including the AI Operating Partner, BuildVoice, and Reclaim.
               </p>
             </Reveal>
             <Reveal delay={0.15}>
@@ -420,7 +420,7 @@ function BuildNest() {
                 <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />
               ))}
               <div style={{ flex: 1, marginLeft: 12, height: 20, background: "#1E293B", borderRadius: 4, maxWidth: 260, display: "flex", alignItems: "center", paddingLeft: 10 }}>
-                <span style={{ fontSize: 10, color: "#475569" }}>buildnest.ai / workspace</span>
+                <span style={{ fontSize: 10, color: "#475569" }}>buildneststudio.com / workspace</span>
               </div>
             </div>
             {/* Mock content */}
@@ -442,6 +442,129 @@ function BuildNest() {
                 <div style={{ height: 8, background: "#0F172A", borderRadius: 3, width: "82%" }} />
                 <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
                   {["Clarity", "Structure", "Execution"].map(tag => (
+                    <span key={tag} style={{ fontSize: 10, padding: "3px 8px", border: "1px solid #1E293B", borderRadius: 4, color: "#475569" }}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </Container>
+    </section>
+  );
+}
+
+/* ─── Reclaim ───────────────────────────────────────────── */
+function Reclaim() {
+  return (
+    <section id="reclaim" style={{ background: T.accentSoft, padding: "100px 0" }}>
+      <Container wide>
+        <Reveal>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 40 }}>
+            <div style={{ width: 8, height: 8, borderRadius: 2, background: T.accent }} />
+            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: T.muted }}>
+              Current Venture
+            </span>
+          </div>
+        </Reveal>
+
+        <div className="two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+          {/* Left */}
+          <div>
+            <Reveal delay={0.05}>
+              <h2 style={{ fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 700, letterSpacing: "-0.035em", color: T.ink, lineHeight: 1.12, marginBottom: 20 }}>
+                Reclaim
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p style={{ fontSize: 16, color: T.muted, lineHeight: 1.75, marginBottom: 36, maxWidth: 460 }}>
+                Reclaim is a Paystack-native tool that helps Nigerian subscription businesses recover revenue
+                lost to failed renewals — expired cards, insufficient funds — through automated SMS follow-up,
+                priced in Naira.
+              </p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                  <Btn variant="accent" href="https://reclaim.buildneststudio.com">Explore Reclaim</Btn>
+                  <Btn variant="ghost" href="#contact">Discuss a collaboration</Btn>
+                </div>
+            </Reveal>
+          </div>
+
+          {/* Right — pillars */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+            {[
+                {
+                  n: "01",
+                  title: "Built for failed renewals",
+                  body: "Expired cards and insufficient funds silently drain subscription revenue. Reclaim catches those failures and brings the revenue back.",
+                },
+                {
+                  n: "02",
+                  title: "Paystack-native, priced in Naira",
+                  body: "No workarounds, no USD conversion — built directly for how Nigerian subscription businesses actually collect and lose payments.",
+                },
+                {
+                  n: "03",
+                  title: "Automated recovery, not manual chasing",
+                  body: "SMS follow-up sequences do the recovery work, so teams get revenue back without adding another task to their plate.",
+                },
+              ].map((p, i) => (
+              <Reveal key={i} delay={0.1 + i * 0.08}>
+                <div style={{
+                  borderTop: `1px solid rgba(79,70,229,0.16)`,
+                  padding: "28px 0",
+                  display: "grid", gridTemplateColumns: "40px 1fr", gap: 20,
+                }}>
+                  <span style={{ fontSize: 11, color: T.accent, fontWeight: 600, letterSpacing: "0.05em", paddingTop: 3 }}>{p.n}</span>
+                  <div>
+                    <p style={{ fontSize: 15, fontWeight: 600, color: T.ink, marginBottom: 8 }}>{p.title}</p>
+                    <p style={{ fontSize: 13, color: T.muted, lineHeight: 1.65 }}>{p.body}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Mock product UI strip */}
+        <Reveal delay={0.25}>
+          <div style={{
+            marginTop: 60,
+            border: `1px solid ${T.borderDark}`,
+            borderRadius: 10,
+            overflow: "hidden",
+            background: "#0A0F1E",
+            boxShadow: "0 20px 50px rgba(79,70,229,0.12)",
+          }}>
+            {/* Window chrome */}
+            <div style={{ padding: "12px 20px", borderBottom: `1px solid ${T.borderDark}`, display: "flex", alignItems: "center", gap: 8 }}>
+              {["#EF4444","#F59E0B","#22C55E"].map(c => (
+                <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />
+              ))}
+              <div style={{ flex: 1, marginLeft: 12, height: 20, background: "#1E293B", borderRadius: 4, maxWidth: 260, display: "flex", alignItems: "center", paddingLeft: 10 }}>
+                <span style={{ fontSize: 10, color: "#475569" }}>reclaim.buildneststudio.com / dashboard</span>
+              </div>
+            </div>
+            {/* Mock content */}
+            <div style={{ padding: "28px 28px 28px", display: "grid", gridTemplateColumns: "180px 1fr", gap: 24, minHeight: 160 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {["Failed Payments", "Recovery Queue", "SMS Sequences", "Recovered Revenue", "Reports"].map((item, i) => (
+                  <div key={item} style={{
+                    fontSize: 12, color: i === 0 ? "#F8FAFC" : "#475569",
+                    padding: "6px 10px", borderRadius: 4,
+                    background: i === 0 ? "#1E293B" : "transparent",
+                    cursor: "default",
+                  }}>{item}</div>
+                ))}
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ height: 12, background: "#1E293B", borderRadius: 3, width: "55%" }} />
+                <div style={{ height: 8, background: "#0F172A", borderRadius: 3, width: "85%" }} />
+                <div style={{ height: 8, background: "#0F172A", borderRadius: 3, width: "70%" }} />
+                <div style={{ height: 8, background: "#0F172A", borderRadius: 3, width: "78%" }} />
+                <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
+                  {["Expired Card", "Insufficient Funds", "Recovered"].map(tag => (
                     <span key={tag} style={{ fontSize: 10, padding: "3px 8px", border: "1px solid #1E293B", borderRadius: 4, color: "#475569" }}>{tag}</span>
                   ))}
                 </div>
@@ -537,9 +660,9 @@ function WorkingOn() {
           href: "https://selar.com/1125x12h37",
         },
         {
-          label: "Venture",
-          title: "BuildNest AI",
-          desc: "An AI operating partner designed to help founders and teams build with more clarity, alignment, and structure.",
+          label: "Studio",
+          title: "BuildNest Studio",
+          desc: "An AI product studio building always-on AI operators — including the AI Operating Partner, BuildVoice, and Reclaim.",
           cta: "Explore BuildNest →",
           href: "https://buildneststudio.com",
         },
@@ -549,6 +672,13 @@ function WorkingOn() {
           desc: "Writing and reflection on design, technology, growth, identity, and what it means to build with depth.",
           cta: "Read on LinkedIn →",
           href: "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7392679189499330560",
+        },
+        {
+          label: "Weekly Guide",
+          title: "Nurtura Kids",
+          desc: "A curated weekly guide to children's activities across Lagos, helping parents find things to do without the guesswork.",
+          cta: "Explore Nurtura Kids →",
+          href: "https://nurtura-kids.vercel.app/",
         },
       ];
 
@@ -578,7 +708,7 @@ function WorkingOn() {
       </div>
       <Container style={{ position: "relative", zIndex: 1 }}>
         <Reveal><SectionLabel>What I'm Working On</SectionLabel></Reveal>
-        <div className="three-col working-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 28, alignItems: "stretch" }}>          {cols.map((col, i) => (
+        <div className="three-col working-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 28, alignItems: "stretch" }}>          {cols.map((col, i) => (
             <Reveal key={i} delay={i * 0.08}>
               <div style={{
                 background: "rgba(250,250,249,0.88)",
@@ -852,6 +982,77 @@ function Writing() {
   );
 }
 
+/* ─── Experience ────────────────────────────────────────── */
+function Experience() {
+  const roles = [
+    {
+      title: "Founder & Lead Product Designer",
+      company: "BuildNest Studio",
+      note: "Registered as Vanif Designs",
+      dates: "2025 — Present",
+      desc: "Building AI operators for leadership and customer operations — Reclaim, the AI Operating Partner, and BuildVoice.",
+      current: true,
+    },
+    {
+      title: "Lead Product Designer",
+      company: "Wakanow (Kalabash54)",
+      dates: "2024 — Present",
+      desc: "Leading product design across travel and fintech products.",
+      current: true,
+    },
+    {
+      title: "Creative Designer",
+      company: "KPMG Nigeria",
+      note: "Contract",
+      dates: "Jul 2021 — Nov 2021",
+      desc: "Created high-quality visual designs for internal and client-facing projects across multiple business units.",
+    },
+    {
+      title: "Creative Designer",
+      company: "Reeach UK / Softcom",
+      dates: "Nov 2015 — Dec 2022",
+      desc: "Delivered end-to-end creative and product design solutions that supported brand growth and digital execution.",
+    },
+  ];
+
+  return (
+    <section id="experience" style={{ padding: "100px 0" }}>
+      <Container>
+        <Reveal><SectionLabel>Experience</SectionLabel></Reveal>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {roles.map((r, i) => (
+            <Reveal key={i} delay={i * 0.06}>
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "1fr auto",
+                alignItems: "start",
+                gap: 24,
+                padding: "28px 0",
+                borderTop: i === 0 ? `1px solid ${T.border}` : "none",
+                borderBottom: `1px solid ${T.border}`,
+              }}>
+                <div>
+                  <p style={{ fontSize: 16, fontWeight: 600, color: T.ink, marginBottom: 4 }}>
+                    {r.title} <span style={{ fontWeight: 400, color: T.muted }}>· {r.company}</span>
+                  </p>
+                  {r.note ? (
+                    <p style={{ fontSize: 12, color: T.muted, marginBottom: 8 }}>{r.note}</p>
+                  ) : null}
+                  <p style={{ fontSize: 14, color: T.muted, lineHeight: 1.7, maxWidth: 640, marginTop: r.note ? 0 : 8 }}>{r.desc}</p>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, whiteSpace: "nowrap", paddingTop: 2 }}>
+                  {r.current ? <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#22C55E" }} /> : null}
+                  <span style={{ fontSize: 13, color: T.muted }}>{r.dates}</span>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 /* ─── About ─────────────────────────────────────────────── */
 function About() {
   return (
@@ -871,8 +1072,11 @@ function About() {
           <p style={{ fontSize: 15, color: T.muted, lineHeight: 1.75, marginBottom: 16 }}>
             My work sits at the intersection of product clarity, systems thinking, and thoughtful execution. Over time, I’ve become increasingly drawn to the structure beneath the interface — how teams make decisions, how products stay coherent as they grow, and how better systems can reduce noise and unlock momentum.
           </p>
+          <p style={{ fontSize: 15, color: T.muted, lineHeight: 1.75, marginBottom: 16 }}>
+            That thinking now shows up in two places: as Lead Product Designer at Wakanow (Kalabash54), where I bring that same clarity to a large-scale consumer product, and through BuildNest Studio, the studio I founded — now an umbrella for a small portfolio of products, including the AI Operating Partner, BuildVoice, and Reclaim, each built to help founders and teams operate with more clarity and recover more of what they've already earned.
+          </p>
           <p style={{ fontSize: 15, color: T.muted, lineHeight: 1.75 }}>
-            That thinking now informs both my client work and BuildNest, the venture I’m building to help founders and teams operate with more clarity. I also write through Ask a Tech Mama, where I explore design, technology, ambition, and identity with honesty and depth, and created <em>Design Once, Sell Forever</em>, a practical guide for designers turning existing work into scalable digital products.
+            I also write through Ask a Tech Mama, where I explore design, technology, ambition, and identity with honesty and depth, and created <em>Design Once, Sell Forever</em>, a practical guide for designers turning existing work into scalable digital products.
           </p>
         </Reveal>
         </div>
@@ -1381,7 +1585,7 @@ function Footer() {
             {[
               { label: "LinkedIn", href: "https://www.linkedin.com/in/ifeomaokocha" },
               { label: "Book", href: "https://selar.com/1125x12h37" },
-              { label: "BuildNest AI", href: "https://buildneststudio.com" },
+              { label: "BuildNest Studio", href: "https://buildneststudio.com" },
               { label: "Newsletter", href: "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7392679189499330560" }
             ].map(l => (
               <a key={l.label} href={l.href} style={{ fontSize: 12, color: T.muted, textDecoration: "none" }}
@@ -1543,6 +1747,8 @@ export default function App() {
       <main>
         <Hero />
         <Divider />
+        <Reclaim />
+        <Divider />
         <BuildNest />
         <Divider />
         <Contribute />
@@ -1554,6 +1760,8 @@ export default function App() {
         <Writing />
         <Divider />
         <About />
+        <Divider />
+        <Experience />
         <Contact />
       </main>
       <Footer />
