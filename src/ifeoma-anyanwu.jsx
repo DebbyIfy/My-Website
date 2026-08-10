@@ -667,6 +667,13 @@ function WorkingOn() {
           href: "https://buildneststudio.com",
         },
         {
+          label: "Venture",
+          title: "Reclaim",
+          desc: "A Paystack-native tool helping Nigerian subscription businesses recover revenue lost to failed renewals through automated SMS follow-up.",
+          cta: "Explore Reclaim →",
+          href: "https://reclaim.buildneststudio.com",
+        },
+        {
           label: "Writing",
           title: "Ask a Tech Mama",
           desc: "Writing and reflection on design, technology, growth, identity, and what it means to build with depth.",
