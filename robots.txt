@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://debbyify.github.io/My-Website/sitemap.xml
+Sitemap: https://ifeoma.buildneststudio.com/sitemap.xml
